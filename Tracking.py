@@ -47,7 +47,13 @@ choice = st.sidebar.selectbox("Input type",menu)
 #Put slide to adjust tolerance
 TOLERANCE = st.sidebar.slider("Tolerance",0.0,1.0,0.5,0.01)
 st.sidebar.info("Tolerance is the threshold for face recognition. The lower the tolerance, the more strict the face recognition. The higher the tolerance, the more loose the face recognition.")
-
+def recv(frame):
+    img = frame.to_ndarray(format="bgr24")
+    img, name, id = recognize(img, TOLERANCE)
+    # st.session_state['name'] = name
+    # st.session_state['id'] = id
+    # st.session_state['frame'] = img
+    return av.VideoFrame.from_ndarray(img, format="bgr24")
 #Infomation section 
 st.sidebar.title("Information")
 name_container = st.sidebar.empty()
@@ -85,7 +91,8 @@ elif choice == "Webcam":
     },
     webrtc_ctx = webrtc_streamer(
                 key="example",
-                video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
+                video_frame_callback=recv,
+                # video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
                 mode=WebRtcMode.SENDRECV,
                 media_stream_constraints={
                         "video": True,
