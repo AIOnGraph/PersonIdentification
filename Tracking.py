@@ -88,10 +88,7 @@ elif choice == "Webcam":
                 video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
                 mode=WebRtcMode.SENDRECV,
                 media_stream_constraints={
-                        "video": {
-                            "width": {"exact": 320},  # Set the width to 320 pixels
-                            "height": {"exact": 200},  # Set the height to 240 pixels
-                        },
+                        "video": True,
                         "audio": False,
                     },
                     rtc_configuration=rtc_configuration,
