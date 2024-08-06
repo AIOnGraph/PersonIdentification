@@ -16,18 +16,18 @@ class VideoProcessor1(VideoProcessorBase):
     def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
         img, name, id = recognize(img, self.tolerance)
-        st.session_state['name'] = name
-        st.session_state['id'] = id
-        st.session_state['frame'] = img
+        # st.session_state['name'] = name
+        # st.session_state['id'] = id
+        # st.session_state['frame'] = img
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 # Initialize session state
-if 'name' not in st.session_state:
-    st.session_state['name'] = 'Unknown'
-if 'id' not in st.session_state:
-    st.session_state['id'] = 'Unknown'
-if 'frame' not in st.session_state:
-    st.session_state['frame'] = None
+# if 'name' not in st.session_state:
+#     st.session_state['name'] = 'Unknown'
+# if 'id' not in st.session_state:
+#     st.session_state['id'] = 'Unknown'
+# if 'frame' not in st.session_state:
+#     st.session_state['frame'] = None
 
 st.set_page_config(layout="wide")
 #Config
@@ -107,12 +107,12 @@ elif choice == "Webcam":
     #         st.info("Please turn off the other app that is using the camera and restart app")
     #         st.stop()
     # image, name, id = recognize(frame,TOLERANCE)
-    while webrtc_ctx.state.playing:
-        if st.session_state['frame'] is not None:
-            frame_rgb = cv2.cvtColor(st.session_state['frame'], cv2.COLOR_BGR2RGB)
-            FRAME_WINDOW.image(frame_rgb)
-            name_container.info(f"Name: {st.session_state['name']}")
-            id_container.success(f"ID: {st.session_state['id']}")
+    # while webrtc_ctx.state.playing:
+    #     if st.session_state['frame'] is not None:
+    #         frame_rgb = cv2.cvtColor(st.session_state['frame'], cv2.COLOR_BGR2RGB)
+    #         FRAME_WINDOW.image(frame_rgb)
+    #         name_container.info(f"Name: {st.session_state['name']}")
+    #         id_container.success(f"ID: {st.session_state['id']}")
     
     
     # image = cv2.cvtColor(st.session_state['frame'], cv2.COLOR_BGR2RGB)
