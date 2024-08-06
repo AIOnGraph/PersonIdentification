@@ -47,15 +47,15 @@ if choice == "Adding":
                 else:
                     ret = submitNew(name, id, cv2_img)
                     if ret == 1: 
-                        st.success("Student Added")
+                        st.success("Added")
                     elif ret == 0: 
-                        st.error("Student ID already exists")
+                        st.error("ID already exists")
                     elif ret == -1: 
                         st.error("There is no face in the picture")
 elif choice == "Deleting":
     def del_btn_callback(id):
         deleteOne(id)
-        st.success("Student deleted")
+        st.success("Deleted")
         
     id = st.text_input("ID",placeholder='Enter id')
     submit_btn = st.button("Submit",key="submit_btn")
