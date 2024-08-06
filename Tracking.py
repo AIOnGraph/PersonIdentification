@@ -91,7 +91,7 @@ elif choice == "Webcam":
                         "video": True,
                         "audio": False,
                     },
-                    rtc_configuration=rtc_configuration,
+                rtc_configuration=rtc_configuration,
         #         rtc_configuration={
         #     "iceServers": get_ice_servers(),
         #     "iceTransportPolicy": "relay",
