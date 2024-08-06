@@ -4,7 +4,7 @@ import cv2
 import face_recognition as frg
 import yaml 
 import av
-# from sample_utils.turn import get_ice_servers
+from sample_utils import get_ice_servers
 from streamlit_webrtc import VideoProcessorBase, webrtc_streamer, WebRtcMode
 from utils import recognize, build_dataset
 # from Tracking import VideoProcessor1
@@ -62,7 +62,7 @@ if choice == "Picture":
         #Read uploaded image with face_recognition
         for image in uploaded_images:
             image = frg.load_image_file(image)
-            print(image)
+            # print(image)
             image, name, id = recognize(image,TOLERANCE) 
             name_container.info(f"Name: {name}")
             id_container.success(f"ID: {id}")
@@ -78,7 +78,11 @@ elif choice == "Webcam":
     # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     FRAME_WINDOW = st.image([])
-    rtc_configuration = {"iceServers": [{"urls": "turn:relay1.expressturn.com:3478", "username": "efPU52K4SLOQ34W2QY", "credential": "1TJPNFxHKXrZfelz"}]}
+    # rtc_configuration = {"iceServers": [{"urls": "turn:relay1.expressturn.com:3478"}]}
+    rtc_configuration={
+        "iceServers": get_ice_servers(),
+        "iceTransportPolicy": "relay",
+    },
     webrtc_ctx = webrtc_streamer(
                 key="example",
                 video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
@@ -90,7 +94,11 @@ elif choice == "Webcam":
                         },
                         "audio": False,
                     },
-                rtc_configuration=rtc_configuration,
+                    rtc_configuration=rtc_configuration,
+        #         rtc_configuration={
+        #     "iceServers": get_ice_servers(),
+        #     "iceTransportPolicy": "relay",
+        # },
                 async_processing=True,
                 
                 # video_frame_callback=processor.recv
