@@ -29,9 +29,9 @@ if choice == "Adding":
                 else:
                     ret = submitNew(name, id, uploaded_image)
                     if ret == 1: 
-                        st.success("Student Added")
+                        st.success("Added")
                     elif ret == 0: 
-                        st.error("Student ID already exists")
+                        st.error("ID already exists")
                     elif ret == -1: 
                         st.error("There is no face in the picture")
     elif upload == "Webcam":
@@ -62,10 +62,10 @@ elif choice == "Deleting":
     if submit_btn:
         name, image,_ = get_info_from_id(id)
         if name == None and image == None:
-            st.error("Student ID does not exist")
+            st.error("ID does not exist")
         else:
-            st.success(f"Name of student with ID {id} is: {name}")
-            st.warning("Please check the image below to make sure you are deleting the right student")
+            st.success(f"Name of person with ID {id} is: {name}")
+            st.warning("Please check the image below to make sure you are deleting the right person")
             st.image(image)
             del_btn = st.button("Delete",key="del_btn",on_click=del_btn_callback, args=(id,)) 
         
@@ -90,9 +90,9 @@ elif choice == "Adjusting":
         
         ret = submitNew(name, id, image, old_idx=old_idx)
         if ret == 1: 
-            st.success("Student Added")
+            st.success("Added")
         elif ret == 0: 
-            st.error("Student ID already exists")
+            st.error("ID already exists")
         elif ret == -1: 
             st.error("There is no face in the picture")
     id = st.text_input("ID",placeholder='Enter id')
@@ -100,10 +100,10 @@ elif choice == "Adjusting":
     if submit_btn:
         old_name, old_image, old_idx = get_info_from_id(id)
         if old_name == None and old_image == None:
-            st.error("Student ID does not exist")
+            st.error("ID does not exist")
         else:
             with st.form(key='my_form'):
-                st.title("Adjusting student info")
+                st.title("Adjusting info")
                 col1, col2 = st.columns(2)
                 new_name = col1.text_input("Name",key='new_name', value=old_name, placeholder='Enter new name')
                 new_id  = col1.text_input("ID",key='new_id',value=id,placeholder='Enter new id')
