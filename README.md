@@ -1,6 +1,6 @@
-# Face recognition app using Streamlit
+# Person recognition app using Streamlit
 
-This is a face recognition application built using Python, [Face-Recognition API](https://github.com/ageitgey/face_recognition) and Streamlit framework. The app allows users to upload an image containing faces and performs face recognition using the face recognition library.
+This is a Person recognition application built using Python, [Face-Recognition API](https://github.com/ageitgey/face_recognition) and Streamlit framework. The app allows users to upload an image containing Person and performs face recognition using the face recognition library.
 
 ## Features
 
@@ -10,8 +10,8 @@ This is a face recognition application built using Python, [Face-Recognition API
 - User-friendly interface
 
 ## Requirements 
-- Python 3.9
-- Streamlit 1.22.0
+- Python 
+- Streamlit 
 - face_recognition 
 
 ## Repository structure
@@ -69,9 +69,9 @@ streamlit run Tracking.py
 
 
 1. Tracking using picture and video 
-![Tracking using picture](assets/tracking.png)
+![Tracking using picture](assets/UPLOAD_PHOTO.png)
 
 2. Adding new person to database
-![Adding new person to database](assets/adding.png)
+![Adding new person to database](assets/ADDING_PERSON_TO_DB.png)
 
 
