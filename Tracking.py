@@ -86,8 +86,7 @@ elif choice == "Webcam":
     FRAME_WINDOW = st.image([])
     # rtc_configuration = {"iceServers": [{"urls": "turn:relay1.expressturn.com:3478"}]}
     rtc_configuration={
-        "iceServers": get_ice_servers(),
-        "iceTransportPolicy": "relay",
+        "iceServers": get_ice_servers()
     },
     webrtc_ctx = webrtc_streamer(
                 key="example",
