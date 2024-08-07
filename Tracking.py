@@ -92,8 +92,8 @@ elif choice == "Webcam":
     },
     webrtc_ctx = webrtc_streamer(
                 key="example",
-                # video_frame_callback=VideoProcessor1(TOLERANCE),
-                video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
+                video_frame_callback=VideoProcessor1(TOLERANCE),
+                # video_processor_factory=lambda: VideoProcessor1(TOLERANCE),
                 mode=WebRtcMode.SENDRECV,
                 media_stream_constraints={
                         "video": True,
