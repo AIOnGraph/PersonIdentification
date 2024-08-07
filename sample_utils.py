@@ -14,7 +14,6 @@ def get_ice_servers():
     See https://github.com/whitphx/streamlit-webrtc/issues/1213
     """
 
-    # Ref: https://www.twilio.com/docs/stun-turn/api
     try:
         account_sid = st.secrets["TWILIO_ACCOUNT_SID"]
         auth_token = st.secrets["TWILIO_AUTH_TOKEN"]
