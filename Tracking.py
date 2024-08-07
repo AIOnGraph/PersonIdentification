@@ -11,9 +11,11 @@ from utils import recognize, build_dataset
 # Path: code\app.py
 class VideoProcessor1(VideoProcessorBase):
     def __init__(self,tolerance):
-        self.tolerance = tolerance  # Example tolerance value
+        self.tolerance = tolerance 
+        print(tolerance) # Example tolerance value
 
     def recv(self, frame):
+        print(frame)
         img = frame.to_ndarray(format="bgr24")
         img, name, id = recognize(img, self.tolerance)
         # st.session_state['name'] = name
