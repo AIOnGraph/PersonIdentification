@@ -27,7 +27,7 @@ def load_database() -> Dict[int, Dict[str, str]]:
         open(PKL_PATH, "wb").close()
         database = {}
     except Exception as e:
-        st.error(f"Error loading database: {e}")
+        # st.error(f"Error loading database: {e}")
         database = {}
 
     return database
@@ -43,16 +43,19 @@ def render_database(database: Dict[int, Dict[str, str]]):
             dictionaries with 'id', 'name', and 'image' keys.
     """
     index, id_col, name_col, image_col = st.columns([0.5, 0.5, 3, 3])
+    if database:
+        for idx, person in database.items():
+            with index:
+                st.write(idx+1)
+            with id_col:
+                st.write(person["id"])
+            with name_col:
+                st.write(person["name"])
+            with image_col:
+                st.image(person["image"], width=200)
+    else:
+        st.error("Soory,No Data Found!")
 
-    for idx, person in database.items():
-        with index:
-            st.write(idx)
-        with id_col:
-            st.write(person["id"])
-        with name_col:
-            st.write(person["name"])
-        with image_col:
-            st.image(person["image"], width=200)
 
 
 def main():

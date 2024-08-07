@@ -7,7 +7,7 @@ import av
 from streamlit_webrtc import VideoProcessorBase, webrtc_streamer, WebRtcMode
 from streamlit_webrtc import webrtc_streamer
 from sample_utils import get_ice_servers
-from utils import recognize, build_dataset
+from utils import recognize
 
 
 
@@ -40,7 +40,7 @@ menu = ["Picture","Webcam"]
 choice = st.sidebar.selectbox("Input type",menu)
 #Put slide to adjust tolerance
 TOLERANCE = st.sidebar.slider("Tolerance",0.0,1.0,0.5,0.01)
-st.sidebar.info("Tolerance is the threshold for face recognition. The lower the tolerance, the more strict the face recognition. The higher the tolerance, the more loose the face recognition.")
+st.sidebar.info("Tolerance is the threshold for Person recognition. The lower the tolerance, the more strict the Person recognition. The higher the tolerance, the more loose the Person recognition.")
 
 #Infomation section 
 st.sidebar.title("Information")
@@ -49,7 +49,7 @@ id_container = st.sidebar.empty()
 name_container.info('Name: Unknown')
 id_container.success('ID: Unknown')
 if choice == "Picture":
-    st.title("Face Recognition App")
+    st.title("Person Recognition App")
     st.write(PICTURE_PROMPT)
     uploaded_images = st.file_uploader("Upload",type=['jpg','png','jpeg'],accept_multiple_files=True)
     if len(uploaded_images) != 0:
@@ -64,7 +64,7 @@ if choice == "Picture":
         st.info("Please upload an image")
     
 elif choice == "Webcam":
-    st.title("Face Recognition App")
+    st.title("Person Recognition App")
     st.write(WEBCAM_PROMPT)
 
     FRAME_WINDOW = st.image([])
