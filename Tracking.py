@@ -3,25 +3,25 @@
 # import cv2
 # import face_recognition as frg
 # import yaml 
-# import av
+import av
 # from sample_utils import get_ice_servers
-# from streamlit_webrtc import VideoProcessorBase, webrtc_streamer, WebRtcMode,RTCConfiguration
-# from utils import recognize, build_dataset
+from streamlit_webrtc import VideoProcessorBase
+from utils import recognize, build_dataset
 # # from Tracking import VideoProcessor1
 # # Path: code\app.py
-# class VideoProcessor1(VideoProcessorBase):
-#     def __init__(self,tolerance):
-#         self.tolerance = tolerance 
-#         print(tolerance) # Example tolerance value
+class VideoProcessor1(VideoProcessorBase):
+    def __init__(self,tolerance):
+        self.tolerance = tolerance 
+        print(tolerance) # Example tolerance value
 
-#     def recv(self, frame):
-#         print(frame)
-#         img = frame.to_ndarray(format="bgr24")
-#         img, name, id = recognize(img, self.tolerance)
-#         # st.session_state['name'] = name
-#         # st.session_state['id'] = id
-#         # st.session_state['frame'] = img
-#         return av.VideoFrame.from_ndarray(img, format="bgr24")
+    def recv(self, frame):
+        print(frame)
+        img = frame.to_ndarray(format="bgr24")
+        img, name, id = recognize(img, self.tolerance)
+        # st.session_state['name'] = name
+        # st.session_state['id'] = id
+        # st.session_state['frame'] = img
+        return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 # # Initialize session state
 # # if 'name' not in st.session_state:
@@ -148,5 +148,7 @@ from sample_utils import get_ice_servers
 webrtc_streamer(key="sample",mode=WebRtcMode.SENDRECV,rtc_configuration={
             "iceServers": get_ice_servers(),
             "iceTransportPolicy": "relay",
-        },)
+        },
+        video_processor_factory=lambda: VideoProcessor1(0.5),
+        )
  
