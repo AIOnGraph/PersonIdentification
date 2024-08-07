@@ -141,7 +141,12 @@
 #         st.success("Dataset has been reset")
 
 
-
+from streamlit_webrtc import VideoProcessorBase, webrtc_streamer, WebRtcMode,RTCConfiguration
 from streamlit_webrtc import webrtc_streamer
+from sample_utils import get_ice_servers
 
-webrtc_streamer(key="sample")
+webrtc_streamer(key="sample",mode=WebRtcMode.SENDRECV,rtc_configuration={
+            "iceServers": get_ice_servers(),
+            "iceTransportPolicy": "relay",
+        },)
+ 
