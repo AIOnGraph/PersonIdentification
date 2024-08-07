@@ -14,9 +14,18 @@ DATASET_DIR = cfg['PATH']['DATASET_DIR']
 PKL_PATH = cfg['PATH']['PKL_PATH']
 
 def get_databse():
-    with open(PKL_PATH,'rb') as f:
-        database = pkl.load(f)
-    return database
+    try:
+        with open(PKL_PATH,'rb') as f:
+            database = pkl.load(f)
+        return database
+    
+    except FileNotFoundError:
+    
+        open(os.path.join(DATASET_DIR,'database.pkl'), 'wb').close()
+        get_databse()
+    except Exception as e:
+        print("Error",e)
+        return information
 def recognize(image,TOLERANCE): 
     database = get_databse()
     # print(database)
