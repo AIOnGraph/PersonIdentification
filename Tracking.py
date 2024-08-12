@@ -9,27 +9,22 @@ from streamlit_webrtc import webrtc_streamer
 from sample_utils import get_ice_servers
 from recognization_utils import recognize
 import os 
-
-
-class VideoProcessor1(VideoProcessorBase):
-    def __init__(self,tolerance):
-        self.tolerance = tolerance  
-
-    def recv(self, frame):
-        img = frame.to_ndarray(format="bgr24")
-        img, name, id = recognize(img, self.tolerance)
-        return av.VideoFrame.from_ndarray(img, format="bgr24")
-
-
 cfg = yaml.load(open('config.yaml', 'r'), Loader=yaml.FullLoader)
 PKL_PATH = cfg['PATH']['PKL_PATH']
 
 def perform_cleanup():
-    if os.path.exists(PKL_PATH):
-        os.remove(PKL_PATH)
-        print(f"Deleted file: {PKL_PATH}")
-    else:
+    try:
+        if os.path.exists(PKL_PATH):
+            os.remove(PKL_PATH)
+            print(f"Deleted file: {PKL_PATH}")
+        else:
+            print(f"File does not exist: {PKL_PATH}")
+    except FileNotFoundError as e:
         print(f"File does not exist: {PKL_PATH}")
+
+    except Exception as e:
+        print(f"error: {e}")
+
 
 
 
@@ -52,12 +47,6 @@ if not st.session_state.initialized:
     perform_cleanup()
     st.session_state.initialized = True
 
-print(st.session_state.initialized)
-
-
-st.set_page_config(layout="wide")
-#Config
-cfg = yaml.load(open('config.yaml','r'),Loader=yaml.FullLoader)
 PICTURE_PROMPT = cfg['INFO']['PICTURE_PROMPT']
 WEBCAM_PROMPT = cfg['INFO']['WEBCAM_PROMPT']
 
