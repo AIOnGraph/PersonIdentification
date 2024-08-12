@@ -30,3 +30,18 @@ def get_ice_servers():
         )
         return [{"urls": ["stun:stun.l.google.com:19302"]}]
     return token.ice_servers
+
+
+
+def perform_cleanup(PKL_PATH):
+    try:
+        if os.path.exists(PKL_PATH):
+            os.remove(PKL_PATH)
+            print(f"Deleted file: {PKL_PATH}")
+        else:
+            print(f"File does not exist: {PKL_PATH}")
+    except FileNotFoundError as e:
+        print(f"File does not exist: {PKL_PATH}")
+
+    except Exception as e:
+        print(f"error: {e}")

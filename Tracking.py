@@ -6,24 +6,13 @@ import yaml
 import av
 from streamlit_webrtc import VideoProcessorBase, webrtc_streamer, WebRtcMode
 from streamlit_webrtc import webrtc_streamer
-from sample_utils import get_ice_servers
+from sample_utils import get_ice_servers,perform_cleanup
 from recognization_utils import recognize
 import os 
 cfg = yaml.load(open('config.yaml', 'r'), Loader=yaml.FullLoader)
 PKL_PATH = cfg['PATH']['PKL_PATH']
 
-def perform_cleanup():
-    try:
-        if os.path.exists(PKL_PATH):
-            os.remove(PKL_PATH)
-            print(f"Deleted file: {PKL_PATH}")
-        else:
-            print(f"File does not exist: {PKL_PATH}")
-    except FileNotFoundError as e:
-        print(f"File does not exist: {PKL_PATH}")
 
-    except Exception as e:
-        print(f"error: {e}")
 
 
 
@@ -44,7 +33,7 @@ if 'initialized' not in st.session_state:
     st.session_state.initialized = False
 
 if not st.session_state.initialized:
-    perform_cleanup()
+    perform_cleanup(PKL_PATH)
     st.session_state.initialized = True
 
 PICTURE_PROMPT = cfg['INFO']['PICTURE_PROMPT']

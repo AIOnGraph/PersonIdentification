@@ -6,12 +6,27 @@ import numpy as np
 import yaml
 from collections import defaultdict
 import av
+import streamlit as st
+from sample_utils import perform_cleanup
 
 
 information = defaultdict(dict)
 cfg = yaml.load(open('config.yaml','r'),Loader=yaml.FullLoader)
 DATASET_DIR = cfg['PATH']['DATASET_DIR']
 PKL_PATH = cfg['PATH']['PKL_PATH']
+
+
+
+if 'initialized' not in st.session_state:
+    st.session_state.initialized = False
+
+if not st.session_state.initialized:
+    perform_cleanup(PKL_PATH)
+    st.session_state.initialized = True
+
+
+
+
 
 def get_databse():
     try:

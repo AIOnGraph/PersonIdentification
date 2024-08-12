@@ -4,10 +4,27 @@ from typing import Dict
 import yaml 
 import pandas as pd
 import streamlit as st
+from sample_utils import perform_cleanup
+
+
 cfg = yaml.load(open("config.yaml", "r"), Loader=yaml.FullLoader)
 PKL_PATH = cfg['PATH']["PKL_PATH"]
 DATASET_DIR = cfg['PATH']["DATASET_DIR"]
 st.set_page_config(layout="wide")
+
+
+
+
+if 'initialized' not in st.session_state:
+    st.session_state.initialized = False
+
+if not st.session_state.initialized:
+    perform_cleanup(PKL_PATH)
+    st.session_state.initialized = True
+
+
+
+
 
 
 def load_database() -> Dict[int, Dict[str, str]]:
