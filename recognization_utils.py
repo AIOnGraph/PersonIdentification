@@ -28,30 +28,21 @@ def get_databse():
         return information
 def recognize(image,TOLERANCE): 
     database = get_databse()
-    # print(database)
+
+    
     known_encoding = [database[id]['encoding'] for id in database.keys()] 
     name = 'Unknown'
     id = 'Unknown'
 
-    # if image.dtype != np.uint8:
-    #     raise ValueError("Image must be of type uint8")
-    # print("helllo")
-    # small_frame = cv2.resize(image, (0, 0), fx=0.25, fy=0.25)
-    # rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
-    # print(f"rgb_small_frame shape: {rgb_small_frame.shape}, dtype: {rgb_small_frame.dtype}")
-    # print("rgb_small_frame",rgb_small_frame)
     face_locations = frg.face_locations(image)
-    # print("face_location",face_locations)
     face_encodings = frg.face_encodings(image,face_locations)
 
-    # print("face_encodings",face_encodings)
     for (top,right,bottom,left),face_encoding in zip(face_locations,face_encodings):
         matches = frg.compare_faces(known_encoding,face_encoding,tolerance=TOLERANCE)
         distance = frg.face_distance(known_encoding,face_encoding)
         name = 'Unknown'
         id = 'Unknown'
         if True in matches:
-            # print("matches",matches)
             match_index = matches.index(True)
             name = database[match_index]['name']
             id = database[match_index]['id']
@@ -132,12 +123,6 @@ def build_dataset():
 
     with open(os.path.join(DATASET_DIR,'database.pkl'),'wb') as f:
         pkl.dump(information,f)
-
-
-
-
-
-
 
 
 

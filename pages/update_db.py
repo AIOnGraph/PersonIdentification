@@ -2,7 +2,7 @@ import streamlit as st
 import cv2
 import yaml 
 import pickle 
-from utils import submitNew, get_info_from_id, deleteOne
+from recognization_utils import submitNew, get_info_from_id, deleteOne
 import numpy as np
 
 st.set_page_config(layout="wide")
